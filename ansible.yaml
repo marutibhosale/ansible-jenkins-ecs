@@ -57,6 +57,9 @@
 
     - name: create ecs service
       ecs_service:
+        aws_access_key: AKIAYVFX4BPJU32WJH5A
+        aws_secret_key: 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
+        region: ap-south-1
         state: present
         name: wordpress_from_ansible
         cluster: "{{EcsClusterName}}"
