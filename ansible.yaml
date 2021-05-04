@@ -5,6 +5,7 @@
     - set_fact: EcsClusterName="test"
     - name: create task def- from ansible
       ecs_taskdefinition:
+        region: ap-south-1
         containers:
         - name: wordpress
           cpu: 10
