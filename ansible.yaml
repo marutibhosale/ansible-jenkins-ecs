@@ -5,8 +5,8 @@
     - set_fact: EcsClusterName="test"
     - name: create task def- from ansible
       ecs_taskdefinition:
-        aws_access_key: AKIAYVFX4BPJU32WJH5A
-        aws_secret_key: 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
+        #aws_access_key:
+        #aws_secret_key:
         region: ap-south-1
         containers:
         - name: wordpress
@@ -57,8 +57,8 @@
 
     - name: create ecs service
       ecs_service:
-        aws_access_key: AKIAYVFX4BPJU32WJH5A
-        aws_secret_key: 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
+        #aws_access_key:
+        #aws_secret_key:
         region: ap-south-1
         state: present
         name: wordpress_from_ansible
