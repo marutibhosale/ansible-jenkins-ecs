@@ -47,14 +47,6 @@
         # revision: 1
       register: task_output
 
-    - name: Print details name
-      debug: var=task_output.taskdefinition["family"]
-    - name: Print details Task revision
-      debug: var=task_output.taskdefinition["revision"]
-    - name: Print details Task name and revision
-      debug:
-        msg: "{{  task_output.taskdefinition[\"family\"]   }}:{{ task_output.taskdefinition[\"revision\"] }}"
-
     - name: create ecs service
       ecs_service:
         #aws_access_key:
@@ -66,16 +58,3 @@
         task_definition: "{{  task_output.taskdefinition[\"family\"]   }}:{{ task_output.taskdefinition[\"revision\"] }}"
         desired_count: 1
       register: service_output
-
-    - name: Service Status
-      debug: var=service_output.service.status
-
-    - name: Service name
-      debug: var=service_output.service.serviceName
-
-    - name: Service ARN
-      debug: var=service_output.service.serviceArn
-
-    - name: Cluster ARN
-      debug: var=service_output.service.clusterArn
-      
