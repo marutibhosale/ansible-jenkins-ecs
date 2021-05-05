@@ -44,7 +44,6 @@
             value: "password"
         state: present
         family: wordpress_from_ansible
-        # revision: 1
       register: task_output
 
     - name: create ecs service
@@ -55,6 +54,6 @@
         state: present
         name: wordpress_from_ansible
         cluster: "{{EcsClusterName}}"
-        task_definition: "{{  task_output.taskdefinition[\"family\"]   }}:{{ task_output.taskdefinition[\"revision\"] }}"
+        task_definition: "{{  task_output.taskdefinition[\"family\"]   }}"
         desired_count: 1
       register: service_output
