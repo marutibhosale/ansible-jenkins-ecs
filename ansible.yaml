@@ -1,8 +1,13 @@
 - name: Deploy ECS task definition and service
   hosts: localhost
+  
+  vars:
+      task_name: chat
+      EcsClusterName: test
+      service_name: chat_service
 
   tasks:
-    - set_fact: EcsClusterName="test"
+    #- set_fact: EcsClusterName="test"
     - name: create task def- from ansible
       ecs_taskdefinition:
         region: ap-south-1
@@ -16,15 +21,15 @@
           - containerPort: 80
             hostPort: 80
         state: present
-        family: chat_from_ansible
+        family: "{{ task_name }}"
       register: task_output
 
     - name: create ecs service
       ecs_service:
         region: ap-south-1
         state: present
-        name: chat_ecsservice_from_ansible
-        cluster: "{{EcsClusterName}}"
+        name: "{{ service_name }}"
+        cluster: "{{ EcsClusterName }}"
         task_definition: "{{  task_output.taskdefinition[\"family\"]   }}"
         desired_count: 1
       register: service_output
