@@ -12,10 +12,10 @@
       ecs_taskdefinition:
         region: ap-south-1
         containers:
-        - name: nginx_con
+        - name: wordpress_con
           cpu: 10
           essential: true
-          image: "nginx"
+          image: "wordpress"
           memory: 500
           portMappings:
           - containerPort: 80
@@ -38,6 +38,6 @@
           maximum_percent: 150
         load_balancers:
           - targetGroupArn: arn:aws:elasticloadbalancing:ap-south-1:595238587347:targetgroup/nginx-taskGroup/169f549e14857e6f
-            containerName: nginx_con
+            containerName: wordpress_con
             containerPort: 80
       register: service_output
