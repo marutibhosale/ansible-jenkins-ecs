@@ -5,6 +5,10 @@
       task_name: nginx
       EcsClusterName: test
       service_name: nginx_service
+      container_port: 80
+      container_name: nginx_con
+      target_group_arn: arn:aws:elasticloadbalancing:ap-south-1:595238587347:targetgroup/nginx-taskGroup/169f549e14857e6f
+      
 
   tasks:
     #- set_fact: EcsClusterName="test"
@@ -12,13 +16,13 @@
       ecs_taskdefinition:
         region: ap-south-1
         containers:
-        - name: wordpress_con
+        - name: "{{ container_name }}"
           cpu: 10
           essential: true
-          image: "wordpress"
+          image: "nginx"
           memory: 500
           portMappings:
-          - containerPort: 80
+          - containerPort: "{{ container_port }}"
             hostPort: 80
         launch_type: EC2
         state: present
@@ -37,7 +41,7 @@
           minimum_healthy_percent: 75
           maximum_percent: 150
         load_balancers:
-          - targetGroupArn: arn:aws:elasticloadbalancing:ap-south-1:595238587347:targetgroup/nginx-taskGroup/169f549e14857e6f
-            containerName: wordpress_con
-            containerPort: 80
+          - targetGroupArn: "{{ target_group_arn }}"
+            containerName: "{{ container_name }}"
+            containerPort: "{{ container_port }}"
       register: service_output
