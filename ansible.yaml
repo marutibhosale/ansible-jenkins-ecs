@@ -37,9 +37,6 @@
         cluster: "{{ EcsClusterName }}"
         task_definition: "{{  task_output.taskdefinition[\"family\"]   }}"
         desired_count: 1
-        deployment_configuration:
-          minimum_healthy_percent: 75
-          maximum_percent: 150
         load_balancers:
           - targetGroupArn: "{{ target_group_arn }}"
             containerName: "{{ container_name }}"
