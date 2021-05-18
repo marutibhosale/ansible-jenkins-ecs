@@ -1,0 +1,4 @@
+- name: Cluster creation
+  ecs_cluster:
+    name: active_ai
+    state: present
